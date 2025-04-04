@@ -1,5 +1,6 @@
 package helium314.keyboard.keyboard
 
+import android.net.Uri
 import android.text.InputType
 import android.view.KeyEvent
 import android.view.inputmethod.InputMethodSubtype
@@ -55,6 +56,8 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     }
 
     override fun onTextInput(text: String?) = latinIME.onTextInput(text)
+
+    override fun onUriInput(uri: Uri) = latinIME.onUriInput(uri)
 
     override fun onStartBatchInput() = latinIME.onStartBatchInput()
 

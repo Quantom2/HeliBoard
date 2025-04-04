@@ -30,6 +30,11 @@ import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.inputmethod.InputConnectionCompat;
+import androidx.core.view.inputmethod.InputContentInfoCompat;
+import android.net.Uri;
+import android.view.inputmethod.EditorInfo;
+import android.content.ClipDescription;
 
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.StringUtils;
@@ -352,6 +357,26 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             }
             mIC.commitText(mTempObjectForCommitText, newCursorPosition);
         }
+    }
+
+     /**
+     * Calls {@link InputConnectionCompat#commitContent(InputConnection, EditorInfo, InputContentInfoCompat, int, Bundle)}.
+     *
+     * @param uri The URI to be committed.
+     * @param uriType The MIME type of the URI.
+     * @param editorInfo The current editor info.
+     * @param permissionGranted Whether URI permission has already been granted.
+     * @return true if this request is accepted by the application, false otherwise.
+     */
+    public boolean commitUri(final Uri uri, final String uriType,
+                             final EditorInfo editorInfo, final boolean permissionGranted) {
+        mIC = mParent.getCurrentInputConnection();
+        if (!isConnected()) return false;
+        final InputContentInfoCompat inputContentInfo = new InputContentInfoCompat
+                (uri, new ClipDescription(uriType, new String[]{uriType}), null);
+        final int flags = permissionGranted ? 0 : InputConnectionCompat.INPUT_CONTENT_GRANT_READ_URI_PERMISSION;
+        finishComposingText();
+        return InputConnectionCompat.commitContent(mIC, editorInfo, inputContentInfo, flags, null);
     }
 
     @Nullable
