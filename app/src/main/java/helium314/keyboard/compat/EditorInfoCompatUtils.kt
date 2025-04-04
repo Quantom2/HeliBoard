@@ -13,6 +13,9 @@ import androidx.core.view.inputmethod.EditorInfoCompat
 import java.util.*
 import kotlin.collections.ArrayList
 
+import android.util.Log
+import android.net.Uri
+
 object EditorInfoCompatUtils {
 
     @JvmStatic
@@ -44,13 +47,16 @@ object EditorInfoCompatUtils {
     }
 
     @JvmStatic
-    fun isMimeTypeSupportedByEditor(editorInfo: EditorInfo, mimeType: String): Boolean {
-        val editorMimeTypes = EditorInfoCompat.getContentMimeTypes(editorInfo)
-        for (supportedType in editorMimeTypes) {
-            if (ClipDescription.compareMimeTypes(mimeType, supportedType)) {
-                return true
-            }
-        }
-        return false
+    fun isMimeTypeSupportedByEditor(editorInfo: EditorInfo, mimeType: String, uri: Uri): Boolean {
+    /*
+     *  val editorMimeTypes = EditorInfoCompat.getContentMimeTypes(editorInfo)
+     *  for (supportedType in editorMimeTypes) {
+     *      if (ClipDescription.compareMimeTypes(mimeType, supportedType)) {
+     *          return true
+     *      }
+     *  }
+     *  return false
+     */
+     return true
     }
 }

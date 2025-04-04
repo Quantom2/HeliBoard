@@ -1568,7 +1568,7 @@ public class LatinIME extends InputMethodService implements
         final String uriType = getContentResolver().getType(uri);
         final EditorInfo editorInfo = getCurrentInputEditorInfo();
         if (editorInfo == null || uriType == null) return;
-        if (!EditorInfoCompatUtils.isMimeTypeSupportedByEditor(editorInfo, uriType)) {
+        if (!EditorInfoCompatUtils.isMimeTypeSupportedByEditor(editorInfo, uriType, uri)) {
             mKeyboardSwitcher.showToast(getString(R.string.toast_msg_unsupported_uri), true);
             return;
         }
