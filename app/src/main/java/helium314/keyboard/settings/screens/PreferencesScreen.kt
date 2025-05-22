@@ -117,7 +117,7 @@ fun createPreferencesSettings(context: Context) = listOf(
         SwitchPreference(it, Defaults.PREF_ENABLE_CLIPBOARD_HISTORY)
     },
     Setting(context, Settings.PREF_SHOW_NUMBER_ROW, R.string.number_row, R.string.number_row_summary) {
-        SwitchPreference(it, Defaults.PREF_SHOW_NUMBER_ROW) { KeyboardSwitcher.getInstance().reloadKeyboard() }
+        SwitchPreference(it, Defaults.PREF_SHOW_NUMBER_ROW) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
     Setting(context, Settings.PREF_LOCALIZED_NUMBER_ROW, R.string.localized_number_row, R.string.localized_number_row_summary) {
         SwitchPreference(it, Defaults.PREF_LOCALIZED_NUMBER_ROW) {
@@ -172,7 +172,7 @@ fun createPreferencesSettings(context: Context) = listOf(
                 else stringResource(R.string.abbreviation_unit_milliseconds, it.toString())
             },
             range = -1f..100f,
-            onValueChanged = { AudioAndHapticFeedbackManager.getInstance().vibrate(it.toLong()) }
+            onValueChanged = { it?.let { AudioAndHapticFeedbackManager.getInstance().vibrate(it.toLong()) } }
         )
     },
     Setting(context, Settings.PREF_KEYPRESS_SOUND_VOLUME, R.string.prefs_keypress_sound_volume_settings) { setting ->
@@ -186,7 +186,7 @@ fun createPreferencesSettings(context: Context) = listOf(
                 else (it * 100).toInt().toString()
             },
             range = -0.01f..1f,
-            onValueChanged = { audioManager.playSoundEffect(AudioManager.FX_KEYPRESS_STANDARD, it) }
+            onValueChanged = { it?.let { audioManager.playSoundEffect(AudioManager.FX_KEYPRESS_STANDARD, it) } }
         )
     },
 )

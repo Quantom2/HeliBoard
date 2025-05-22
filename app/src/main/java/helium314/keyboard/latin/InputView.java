@@ -21,6 +21,8 @@ import helium314.keyboard.latin.common.ColorType;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.suggestions.PopupSuggestionsView;
 import helium314.keyboard.latin.suggestions.SuggestionStripView;
+import kotlin.Unit;
+
 
 public final class InputView extends FrameLayout {
     private final Rect mInputViewRect = new Rect();
@@ -43,10 +45,7 @@ public final class InputView extends FrameLayout {
                 mMainKeyboardView, suggestionStripView);
         mMoreSuggestionsViewCanceler = new MoreSuggestionsViewCanceler(
                 mMainKeyboardView, suggestionStripView);
-        ViewKt.doOnNextLayout(this, v -> {
-            Settings.getValues().mColors.setBackground(findViewById(R.id.main_keyboard_frame), ColorType.MAIN_BACKGROUND);
-            return null;
-        });
+        ViewKt.doOnNextLayout(this, this::onNextLayout);
     }
 
     public void setKeyboardTopPadding(final int keyboardTopPadding) {
@@ -102,6 +101,14 @@ public final class InputView extends FrameLayout {
         final int x = (int)me.getX(index) + rect.left;
         final int y = (int)me.getY(index) + rect.top;
         return mActiveForwarder.onTouchEvent(x, y, me);
+    }
+
+    private Unit onNextLayout(View v) {
+        Settings.getValues().mColors.setBackground(findViewById(R.id.main_keyboard_frame), ColorType.MAIN_BACKGROUND);
+
+        // Work around inset application being unreliable
+        requestApplyInsets();
+        return null;
     }
 
     /**

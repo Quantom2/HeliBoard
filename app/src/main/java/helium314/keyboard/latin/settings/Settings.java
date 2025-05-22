@@ -95,13 +95,15 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_SIDE_PADDING_SCALE_LANDSCAPE = "side_padding_scale_landscape";
     public static final String PREF_FONT_SCALE = "font_scale";
     public static final String PREF_EMOJI_FONT_SCALE = "emoji_font_scale";
+    public static final String PREF_EMOJI_KEY_FIT = "emoji_key_fit";
+    public static final String PREF_EMOJI_SKIN_TONE = "emoji_skin_tone";
     public static final String PREF_SPACE_HORIZONTAL_SWIPE = "horizontal_space_swipe";
     public static final String PREF_SPACE_VERTICAL_SWIPE = "vertical_space_swipe";
     public static final String PREF_DELETE_SWIPE = "delete_swipe";
     public static final String PREF_AUTOSPACE_AFTER_PUNCTUATION = "autospace_after_punctuation";
     public static final String PREF_AUTOSPACE_AFTER_SUGGESTION = "autospace_after_suggestion";
     public static final String PREF_AUTOSPACE_AFTER_GESTURE_TYPING = "autospace_after_gesture_typing";
-   public static final String PREF_AUTOSPACE_BEFORE_GESTURE_TYPING = "autospace_before_gesture_typing";
+    public static final String PREF_AUTOSPACE_BEFORE_GESTURE_TYPING = "autospace_before_gesture_typing";
     public static final String PREF_SHIFT_REMOVES_AUTOSPACE = "shift_removes_autospace";
     public static final String PREF_ALWAYS_INCOGNITO_MODE = "always_incognito_mode";
     public static final String PREF_BIGRAM_PREDICTIONS = "next_word_prediction";
@@ -120,6 +122,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_GESTURE_TRAIL_FADEOUT_DURATION = "gesture_trail_fadeout_duration";
     public static final String PREF_SHOW_SETUP_WIZARD_ICON = "show_setup_wizard_icon";
     public static final String PREF_USE_CONTACTS = "use_contacts";
+    public static final String PREF_USE_APPS = "use_apps";
     public static final String PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD = "long_press_symbols_for_numpad";
 
     // one-handed mode gravity, enablement and scale, stored separately per orientation
@@ -361,7 +364,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public void writeOneHandedModeEnabled(final boolean enabled) {
         mPrefs.edit().putBoolean(PREF_ONE_HANDED_MODE_PREFIX +
-                (mSettingsValues.mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), enabled).apply();
+                (mSettingsValues.mDisplayOrientation != Configuration.ORIENTATION_LANDSCAPE), enabled).apply();
     }
 
     public static float readOneHandedModeScale(final SharedPreferences prefs, final boolean isLandscape) {
@@ -370,7 +373,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public void writeOneHandedModeScale(final Float scale) {
         mPrefs.edit().putFloat(PREF_ONE_HANDED_SCALE_PREFIX +
-                (mSettingsValues.mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), scale).apply();
+                (mSettingsValues.mDisplayOrientation != Configuration.ORIENTATION_LANDSCAPE), scale).apply();
     }
 
     public static int readOneHandedModeGravity(final SharedPreferences prefs, final boolean isLandscape) {
@@ -379,7 +382,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public void writeOneHandedModeGravity(final int gravity) {
         mPrefs.edit().putInt(PREF_ONE_HANDED_GRAVITY_PREFIX +
-                (mSettingsValues.mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), gravity).apply();
+                (mSettingsValues.mDisplayOrientation != Configuration.ORIENTATION_LANDSCAPE), gravity).apply();
     }
 
     public void writeSplitKeyboardEnabled(final boolean enabled, final boolean isLandscape) {

@@ -171,16 +171,6 @@ object LocaleUtils {
         }
     }
 
-    @JvmStatic
-    fun isRtlLanguage(locale: Locale): Boolean {
-        val displayName = locale.getDisplayName(locale)
-        if (displayName.isEmpty()) return false
-        return when (Character.getDirectionality(displayName.codePointAt(0))) {
-            Character.DIRECTIONALITY_RIGHT_TO_LEFT, Character.DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC -> true
-            else -> false
-        }
-    }
-
     fun Locale.localizedDisplayName(context: Context) =
         getLocaleDisplayNameInLocale(this, context.resources, context.resources.configuration.locale())
 
@@ -188,7 +178,8 @@ object LocaleUtils {
     fun getLocaleDisplayNameInLocale(locale: Locale, resources: Resources, displayLocale: Locale): String {
         val languageTag = locale.toLanguageTag()
         if (languageTag == SubtypeLocaleUtils.NO_LANGUAGE) return resources.getString(R.string.subtype_no_language)
-        if (locale.script() != locale.language.constructLocale().script() || locale.language == "mns" || locale.language == "xdq" || locale.language=="dru") {
+        if (hasNonDefaultScript(locale) || doesNotHaveAndroidName(locale.language)) {
+            // supply our own name for the language instead of using name provided by the system
             val resId = resources.getIdentifier(
                 "subtype_${languageTag.replace("-", "_")}",
                 "string",
@@ -203,4 +194,9 @@ object LocaleUtils {
             localeDisplayName
         }
     }
+
+    private fun hasNonDefaultScript(locale: Locale) = locale.script() != locale.language.constructLocale().script()
+
+    private fun doesNotHaveAndroidName(language: String) =
+        language == "mns" || language == "xdq" || language=="dru" || language == "st" || language == "dag"
 }
