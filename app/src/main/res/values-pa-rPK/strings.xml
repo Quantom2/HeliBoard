@@ -26,7 +26,6 @@
     <string name="subtype_emoji">ایموجی</string>
     <string name="keyboard_layout_set">کیبورڈ دی چوݨ</string>
     <string name="delete">مٹاؤ</string>
-    <string name="user_dict_settings_add_menu_title">شامل کرو</string>
     <string name="user_dict_settings_add_locale_option_name">بولی</string>
     <string name="auto_cap">خود بخود اکھر کیپیٹل ورتݨ</string>
     <string name="auto_correction_threshold_mode_off">بند</string>
@@ -75,7 +74,6 @@
     <string name="theme_style">طنز</string>
     <string name="theme_name_brown" tools:keep="@string/theme_name_brown">بھورا</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">جامنی</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">بولی</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">وکھالا</string>
     <string name="subtype_sr_Latn">سربیائی (لاطینی)</string>
     <string name="dialog_close">بند کرو</string>

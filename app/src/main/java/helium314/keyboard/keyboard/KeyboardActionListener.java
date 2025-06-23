@@ -7,6 +7,8 @@
 package helium314.keyboard.keyboard;
 
 import android.net.Uri;
+import android.view.KeyEvent;
+
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.InputPointers;
 
@@ -31,6 +33,12 @@ public interface KeyboardActionListener {
      *             to other key without releasing the finger.
      */
     void onReleaseKey(int primaryCode, boolean withSliding);
+
+    /** For handling hardware key presses. Returns whether the event was handled. */
+    boolean onKeyDown(int keyCode, KeyEvent keyEvent);
+
+    /** For handling hardware key presses. Returns whether the event was handled. */
+    boolean onKeyUp(int keyCode, KeyEvent keyEvent);
 
     /**
      * Send a key code to the listener.
@@ -124,6 +132,10 @@ public interface KeyboardActionListener {
         public void onPressKey(int primaryCode, int repeatCount, boolean isSinglePointer) {}
         @Override
         public void onReleaseKey(int primaryCode, boolean withSliding) {}
+        @Override
+        public boolean onKeyDown(int keyCode, KeyEvent keyEvent) { return false; }
+        @Override
+        public boolean onKeyUp(int keyCode, KeyEvent keyEvent) { return false; }
         @Override
         public void onCodeInput(int primaryCode, int x, int y, boolean isKeyRepeat) {}
         @Override

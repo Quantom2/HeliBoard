@@ -28,8 +28,10 @@ object SubtypeSettings {
     fun getEnabledSubtypes(fallback: Boolean = false): List<InputMethodSubtype> {
         if (fallback && enabledSubtypes.isEmpty())
             return getDefaultEnabledSubtypes()
-        return enabledSubtypes.toList()
+        return enabledSubtypes
     }
+
+    fun isEnabled(subtype: InputMethodSubtype?): Boolean = subtype in enabledSubtypes || subtype in getDefaultEnabledSubtypes()
 
     fun getAllAvailableSubtypes(): List<InputMethodSubtype> =
         resourceSubtypesByLocale.values.flatten() + additionalSubtypes
@@ -241,7 +243,7 @@ object SubtypeSettings {
                 continue
             }
 
-            val subtype = subtypesForLocale.firstOrNull { SubtypeLocaleUtils.getMainLayoutName(it) == (settingsSubtype.mainLayoutName() ?: SubtypeLocaleUtils.QWERTY) }
+            val subtype = subtypesForLocale.firstOrNull { it.mainLayoutNameOrQwerty() == (settingsSubtype.mainLayoutName() ?: SubtypeLocaleUtils.QWERTY) }
             if (subtype == null) {
                 val message = "subtype $settingsSubtype could not be loaded"
                 Log.w(TAG, message)

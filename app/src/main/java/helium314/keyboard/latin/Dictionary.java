@@ -6,13 +6,12 @@
 
 package helium314.keyboard.latin;
 
-import androidx.annotation.NonNull;
-
 import java.util.ArrayList;
 import java.util.Locale;
 
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
 import helium314.keyboard.latin.common.ComposedData;
+import helium314.keyboard.latin.makedict.WordProperty;
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion;
 
 /**
@@ -179,11 +178,15 @@ public abstract class Dictionary {
         };
     }
 
+    public WordProperty getWordProperty(final String word, final boolean isBeginningOfSentence) {
+        return null;
+    }
+
     /**
      * Not a true dictionary. A placeholder used to indicate suggestions that don't come from any
      * real dictionary.
      */
-    static class PhonyDictionary extends Dictionary {
+    public static class PhonyDictionary extends Dictionary {
         PhonyDictionary(final String type) {
             super(type, null);
         }
